@@ -1,7 +1,6 @@
 # AB_sample_editor
- Jomox Alpha Base Sample Editor
 
- # Jomox Alpha Base Sample Editor
+# Jomox Alpha Base Sample Editor
 
 Alpha Base sample requirements:
 - WAV or RAW
