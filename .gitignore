@@ -154,3 +154,4 @@ bin
 .DS_Store
 share
 *.cfg
+sample_files/
