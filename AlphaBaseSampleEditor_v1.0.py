@@ -72,13 +72,18 @@ for folder in os.listdir('sample_files/TokToksounds/'):
                 print(file)
 TB_stock_samples_keylist.sort()
 
+print('\nDone loading stock samples!')
+
 
 ############################ GUI ############################
 
 root = tk.Tk()
 root.title('Alpha Base Sample Editor')
 
-labelframe_StockSamples = tk.LabelFrame(root, text='Stock Samples')
+frame_LoadSamples = tk.Frame(root)
+
+labelframe_StockSamples = tk.LabelFrame(frame_LoadSamples, text='Stock Samples')
+labelframe_StockSamples.pack(side='top')
 
 labelframe_AlphaBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='Alpha Base Stock Samples')
 labelframe_AlphaBaseSamples.pack(side='top')
@@ -99,6 +104,11 @@ labelframe_ToktokBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/
 labelframe_ToktokBaseSamples.pack(side='top')
 ToktokBaseList = tk.Listbox(labelframe_ToktokBaseSamples, width=50, height=10)
 ToktokBaseList.pack(side='left')
+
+labelframe_PersonalSamples = tk.LabelFrame(frame_LoadSamples, text='Personal Samples')
+labelframe_PersonalSamples.pack(side='top')
+PersonalSamplesList = tk.Listbox(labelframe_PersonalSamples, width=50, height=10)
+PersonalSamplesList.pack(side='left')
 
 labelframe_writelist = tk.LabelFrame(root, text='My Sample Set')
 rightList = tk.Listbox(labelframe_writelist, width=50, height=40)
@@ -128,29 +138,17 @@ def clearFrom(List):
     index = indexList[0]
     List.delete(index)
 
-def audioOnClick(event, obj):
+def audioOnClick(event):
     indexList = event.widget.curselection()
     index = indexList[0]
     audio_file = event.widget.get(index)
-    """if obj == 'AlphaBaseList':
-        play(all_samples[audio_file])
-    elif obj == 'JazBaseList':
-        play(all_samples[audio_file])
-    elif obj == 'WalkerBaseList':
-        play(WB_stock_samples[audio_file])
-    elif obj == 'ToktokBaseList':
-        play(TB_stock_samples[audio_file])
-    elif obj == 'rightList':
-        play(all_samples[audio_file])"""
     play(all_samples[audio_file])
 
-AlphaBaseList.bind("<<ListboxSelect>>", lambda event, obj='AlphaBaseList': audioOnClick(event, obj))
-JazBaseList.bind("<<ListboxSelect>>", lambda event, obj='JazBaseList': audioOnClick(event, obj))
-WalkerBaseList.bind("<<ListboxSelect>>", lambda event, obj='WalkerBaseList': audioOnClick(event, obj))
-ToktokBaseList.bind("<<ListboxSelect>>", lambda event, obj='ToktokBaseList': audioOnClick(event, obj))
-rightList.bind("<<ListboxSelect>>", lambda event, obj='rightList': audioOnClick(event, obj))
-
-AlphaBaseList.bind("<<ListboxSelect>>", lambda event, obj='AlphaBaseList': audioOnClick(event, obj))
+AlphaBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
+JazBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
+WalkerBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
+ToktokBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
+rightList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 
 frame = tk.LabelFrame(root)
 button1 = tk.Button(frame, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
@@ -167,7 +165,7 @@ button4 = tk.Button(frame2, text='v')
 button3.pack(side='top')
 button4.pack(side='top')
 
-labelframe_StockSamples.pack(side='left')
+frame_LoadSamples.pack(side='left')
 frame.pack(side='left')
 labelframe_writelist.pack(side='left')
 frame2.pack(side='left')
