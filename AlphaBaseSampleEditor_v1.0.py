@@ -146,10 +146,10 @@ def load_samples_folder():
                 PersonalSamplesList.insert(tk.END, f'{folder_selected}/{file}')
 
 buttonLoad = tk.Button(labelframe_PersonalSamples, text='Load Single Sample', command=load_samples)
-buttonLoad.pack(side='top', fill='x')
+buttonLoad.pack(side='top', fill='x', pady=2)
 
 buttonLoadFolder = tk.Button(labelframe_PersonalSamples, text='Load Samples Folder', command=load_samples_folder)
-buttonLoadFolder.pack(side='top', fill='x')
+buttonLoadFolder.pack(side='top', fill='x', pady=2)
 
 for item in AB_stock_samples_keylist:
     AlphaBaseList.insert(tk.END, item)
@@ -174,6 +174,20 @@ sample_count_var = tk.StringVar()
 sample_count_var.set(f'Sample Count: {rightList.size()} of 300')
 sampleCountLabel = tk.Label(labelframe_writelist, textvariable=sample_count_var)
 sampleCountLabel.pack(side='top')
+
+newFolderActionsFrame = tk.Frame(labelframe_writelist)
+newFolderActionsFrame.pack(side='top')
+
+newFolderNameLabel = tk.Label(newFolderActionsFrame, text='Custom Folder Name:')
+newFolderNameLabel.pack(side='left')
+
+default_folder_name = 'AlphaBase_Samples_Timestamp'
+newFolderNameEntry = tk.Entry(newFolderActionsFrame, width=10)
+#newFolderNameEntry.insert(0, default_folder_name)
+newFolderNameEntry.pack(side='left')
+
+buttonGenerateFolder = tk.Button(newFolderActionsFrame, text='Generate Samples Folder')
+buttonGenerateFolder.pack(side='right', padx=15)
 
 buttonFrame1 = tk.LabelFrame(root)
 buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
