@@ -88,32 +88,32 @@ root.title(f'Alpha Base Sample Editor v{version}')
 frame_LoadSamples = tk.Frame(root)
 
 labelframe_StockSamples = tk.LabelFrame(frame_LoadSamples, text='Stock Samples')
-labelframe_StockSamples.pack(side='top')
+labelframe_StockSamples.pack(side='top', fill=tk.BOTH, expand=1)
 
 labelframe_AlphaBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='Alpha Base Stock Samples')
-labelframe_AlphaBaseSamples.pack(side='top')
+labelframe_AlphaBaseSamples.pack(side='top', fill=tk.BOTH, expand=1)
 AlphaBaseList = tk.Listbox(labelframe_AlphaBaseSamples, width=50, height=5)
-AlphaBaseList.pack(side='left')
+AlphaBaseList.pack(side='left', fill=tk.BOTH, expand=1)
 
 labelframe_JazBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 JazBase03 Stock Samples')
-labelframe_JazBaseSamples.pack(side='top')
+labelframe_JazBaseSamples.pack(side='top', fill=tk.BOTH, expand=1)
 JazBaseList = tk.Listbox(labelframe_JazBaseSamples, width=50, height=5)
-JazBaseList.pack(side='left')
+JazBaseList.pack(side='left', fill=tk.BOTH, expand=1)
 
 labelframe_WalkerBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 Dr. Walker XBase Stock Samples')
-labelframe_WalkerBaseSamples.pack(side='top')
+labelframe_WalkerBaseSamples.pack(side='top', fill=tk.BOTH, expand=1)
 WalkerBaseList = tk.Listbox(labelframe_WalkerBaseSamples, width=50, height=5)
-WalkerBaseList.pack(side='left')
+WalkerBaseList.pack(side='left', fill=tk.BOTH, expand=1)
 
 labelframe_ToktokBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 TokTok XBase Stock Samples')
-labelframe_ToktokBaseSamples.pack(side='top')
+labelframe_ToktokBaseSamples.pack(side='top', fill=tk.BOTH, expand=1)
 ToktokBaseList = tk.Listbox(labelframe_ToktokBaseSamples, width=50, height=5)
-ToktokBaseList.pack(side='left')
+ToktokBaseList.pack(side='left', fill=tk.BOTH, expand=1)
 
 labelframe_PersonalSamples = tk.LabelFrame(frame_LoadSamples, text='Personal Samples')
-labelframe_PersonalSamples.pack(side='top')
+labelframe_PersonalSamples.pack(side='top', fill=tk.BOTH, expand=1)
 PersonalSamplesList = tk.Listbox(labelframe_PersonalSamples, width=50, height=10)
-PersonalSamplesList.pack(side='top')
+PersonalSamplesList.pack(side='top', fill=tk.BOTH, expand=1)
 
 def load_samples():
     filepath = filedialog.askopenfilename(
@@ -164,8 +164,8 @@ for item in TB_stock_samples_keylist:
     ToktokBaseList.insert(tk.END, item)
 
 labelframe_writelist = tk.LabelFrame(root, text='My Sample Set')
-rightList = tk.Listbox(labelframe_writelist, width=50, height=40)
-rightList.pack(side='left')
+rightList = tk.Listbox(labelframe_writelist, width=50, height=30)
+rightList.pack(side='left', fill=tk.BOTH, expand=1)
 
 buttonFrame1 = tk.LabelFrame(root)
 buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
@@ -186,7 +186,7 @@ buttonDown.pack(side='top')
 
 frame_LoadSamples.pack(side='left', fill=tk.BOTH, expand=1)
 buttonFrame1.pack(side='left')
-labelframe_writelist.pack(side='left')
+labelframe_writelist.pack(side='left', fill=tk.BOTH, expand=1)
 buttonFrame2.pack(side='left')
 
 
