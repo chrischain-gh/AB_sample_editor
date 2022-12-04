@@ -112,10 +112,6 @@ labelframe_PersonalSamples.pack(side='top')
 PersonalSamplesList = tk.Listbox(labelframe_PersonalSamples, width=50, height=10)
 PersonalSamplesList.pack(side='left')
 
-labelframe_writelist = tk.LabelFrame(root, text='My Sample Set')
-rightList = tk.Listbox(labelframe_writelist, width=50, height=40)
-rightList.pack(side='left')
-
 for item in AB_stock_samples_keylist:
     AlphaBaseList.insert(tk.END, item)
 
@@ -127,6 +123,31 @@ for item in WB_stock_samples_keylist:
     
 for item in TB_stock_samples_keylist:
     ToktokBaseList.insert(tk.END, item)
+
+labelframe_writelist = tk.LabelFrame(root, text='My Sample Set')
+rightList = tk.Listbox(labelframe_writelist, width=50, height=40)
+rightList.pack(side='left')
+
+buttonFrame1 = tk.LabelFrame(root)
+buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
+                                                        moveTo(JazBaseList, rightList),
+                                                        moveTo(WalkerBaseList, rightList),
+                                                        moveTo(ToktokBaseList, rightList)])
+buttonX = tk.Button(buttonFrame1, text='X', command = lambda: clearFrom(rightList))
+buttonRight.pack(side='top')
+buttonX.pack(side='top')
+
+buttonFrame2 = tk.LabelFrame(root)
+buttonUp = tk.Button(buttonFrame2, text='ʌ')
+buttonDown = tk.Button(buttonFrame2, text='v')
+buttonUp.pack(side='top')
+buttonDown.pack(side='top')
+
+frame_LoadSamples.pack(side='left', fill=tk.BOTH, expand=1)
+buttonFrame1.pack(side='left')
+labelframe_writelist.pack(side='left')
+buttonFrame2.pack(side='left')
+
 
 def moveTo(fromList, toList):
     indexList = fromList.curselection()
@@ -152,24 +173,5 @@ WalkerBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 ToktokBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 rightList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 
-buttonFrame1 = tk.LabelFrame(root)
-buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
-                                                        moveTo(JazBaseList, rightList),
-                                                        moveTo(WalkerBaseList, rightList),
-                                                        moveTo(ToktokBaseList, rightList)])
-buttonX = tk.Button(buttonFrame1, text='X', command = lambda: clearFrom(rightList))
-buttonRight.pack(side='top')
-buttonX.pack(side='top')
-
-buttonFrame2 = tk.LabelFrame(root)
-buttonUp = tk.Button(buttonFrame2, text='ʌ')
-buttonDown = tk.Button(buttonFrame2, text='v')
-buttonUp.pack(side='top')
-buttonDown.pack(side='top')
-
-frame_LoadSamples.pack(side='left', fill=tk.BOTH, expand=1)
-buttonFrame1.pack(side='left')
-labelframe_writelist.pack(side='left')
-buttonFrame2.pack(side='left')
 
 root.mainloop()
