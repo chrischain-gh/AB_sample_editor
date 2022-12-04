@@ -1,7 +1,10 @@
-import tkinter as tk
 import os
+import tkinter as tk
+from tkinter import filedialog
+
 from pydub import AudioSegment
 from pydub.playback import play
+
 
 version = 1.0
 
@@ -110,7 +113,43 @@ ToktokBaseList.pack(side='left')
 labelframe_PersonalSamples = tk.LabelFrame(frame_LoadSamples, text='Personal Samples')
 labelframe_PersonalSamples.pack(side='top')
 PersonalSamplesList = tk.Listbox(labelframe_PersonalSamples, width=50, height=10)
-PersonalSamplesList.pack(side='left')
+PersonalSamplesList.pack(side='top')
+
+def load_samples():
+    filepath = filedialog.askopenfilename(
+                            #initialdir = "/",
+                            #filetypes = [ (".wav", "*.wav") ]
+                            initialdir = ".",
+                            title = "Load Single Sample")
+    if file[-4::].lower() == '.wav':
+        print('Loading a wav file')
+        string = filepath
+        all_samples[string] = AudioSegment.from_wav(
+                                    string
+                                )[:2700]
+        PersonalSamplesList.insert(tk.END, filepath)
+
+def load_samples_folder():
+    folder_selected = filedialog.askdirectory(
+                                    initialdir = ".",
+                                    title = 'Load Samples Folder')
+    for file in os.listdir(folder_selected):
+        if file.startswith('.'):
+            pass
+        else:
+            if file[-4::].lower() == '.wav':
+                print('Loading a wav file')
+                string = f'{folder_selected}/{file}'
+                all_samples[string] = AudioSegment.from_wav(
+                                            string
+                                        )[:2700]
+                PersonalSamplesList.insert(tk.END, f'{folder_selected}/{file}')
+
+buttonLoad = tk.Button(labelframe_PersonalSamples, text='Load Single Sample', command=load_samples)
+buttonLoad.pack(side='top', fill='x')
+
+buttonLoadFolder = tk.Button(labelframe_PersonalSamples, text='Load Samples Folder', command=load_samples_folder)
+buttonLoadFolder.pack(side='top', fill='x')
 
 for item in AB_stock_samples_keylist:
     AlphaBaseList.insert(tk.END, item)
@@ -132,8 +171,10 @@ buttonFrame1 = tk.LabelFrame(root)
 buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
                                                         moveTo(JazBaseList, rightList),
                                                         moveTo(WalkerBaseList, rightList),
-                                                        moveTo(ToktokBaseList, rightList)])
-buttonX = tk.Button(buttonFrame1, text='X', command = lambda: clearFrom(rightList))
+                                                        moveTo(ToktokBaseList, rightList),
+                                                        moveTo(PersonalSamplesList, rightList)])
+buttonX = tk.Button(buttonFrame1, text='X', command = lambda: [clearFrom(PersonalSamplesList),
+                                                               clearFrom(rightList)])
 buttonRight.pack(side='top')
 buttonX.pack(side='top')
 
@@ -158,19 +199,22 @@ def moveTo(fromList, toList):
 
 def clearFrom(List):
     indexList = List.curselection()
-    index = indexList[0]
-    List.delete(index)
+    if indexList:
+        index = indexList[0]
+        List.delete(index)
 
 def audioOnClick(event):
     indexList = event.widget.curselection()
-    index = indexList[0]
-    audio_file = event.widget.get(index)
-    play(all_samples[audio_file])
+    if indexList:
+        index = indexList[0]
+        audio_file = event.widget.get(index)
+        play(all_samples[audio_file])
 
 AlphaBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 JazBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 WalkerBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 ToktokBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
+PersonalSamplesList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 rightList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 
 
