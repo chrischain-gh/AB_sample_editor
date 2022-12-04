@@ -3,6 +3,8 @@ import os
 from pydub import AudioSegment
 from pydub.playback import play
 
+version = 1.0
+
 # Import sample folder
 all_samples = {}
 
@@ -78,7 +80,7 @@ print('\nDone loading stock samples!')
 ############################ GUI ############################
 
 root = tk.Tk()
-root.title('Alpha Base Sample Editor')
+root.title(f'Alpha Base Sample Editor v{version}')
 
 frame_LoadSamples = tk.Frame(root)
 
@@ -87,22 +89,22 @@ labelframe_StockSamples.pack(side='top')
 
 labelframe_AlphaBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='Alpha Base Stock Samples')
 labelframe_AlphaBaseSamples.pack(side='top')
-AlphaBaseList = tk.Listbox(labelframe_AlphaBaseSamples, width=50, height=10)
+AlphaBaseList = tk.Listbox(labelframe_AlphaBaseSamples, width=50, height=5)
 AlphaBaseList.pack(side='left')
 
 labelframe_JazBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 JazBase03 Stock Samples')
 labelframe_JazBaseSamples.pack(side='top')
-JazBaseList = tk.Listbox(labelframe_JazBaseSamples, width=50, height=10)
+JazBaseList = tk.Listbox(labelframe_JazBaseSamples, width=50, height=5)
 JazBaseList.pack(side='left')
 
 labelframe_WalkerBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 Dr. Walker XBase Stock Samples')
 labelframe_WalkerBaseSamples.pack(side='top')
-WalkerBaseList = tk.Listbox(labelframe_WalkerBaseSamples, width=50, height=10)
+WalkerBaseList = tk.Listbox(labelframe_WalkerBaseSamples, width=50, height=5)
 WalkerBaseList.pack(side='left')
 
 labelframe_ToktokBaseSamples = tk.LabelFrame(labelframe_StockSamples, text='888/999 TokTok XBase Stock Samples')
 labelframe_ToktokBaseSamples.pack(side='top')
-ToktokBaseList = tk.Listbox(labelframe_ToktokBaseSamples, width=50, height=10)
+ToktokBaseList = tk.Listbox(labelframe_ToktokBaseSamples, width=50, height=5)
 ToktokBaseList.pack(side='left')
 
 labelframe_PersonalSamples = tk.LabelFrame(frame_LoadSamples, text='Personal Samples')
@@ -150,24 +152,24 @@ WalkerBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 ToktokBaseList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 rightList.bind("<<ListboxSelect>>", lambda event: audioOnClick(event))
 
-frame = tk.LabelFrame(root)
-button1 = tk.Button(frame, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
+buttonFrame1 = tk.LabelFrame(root)
+buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
                                                         moveTo(JazBaseList, rightList),
                                                         moveTo(WalkerBaseList, rightList),
                                                         moveTo(ToktokBaseList, rightList)])
-button2 = tk.Button(frame, text='X', command = lambda: clearFrom(rightList))
-button1.pack(side='top')
-button2.pack(side='top')
+buttonX = tk.Button(buttonFrame1, text='X', command = lambda: clearFrom(rightList))
+buttonRight.pack(side='top')
+buttonX.pack(side='top')
 
-frame2 = tk.LabelFrame(root, text='')
-button3 = tk.Button(frame2, text='ʌ')
-button4 = tk.Button(frame2, text='v')
-button3.pack(side='top')
-button4.pack(side='top')
+buttonFrame2 = tk.LabelFrame(root)
+buttonUp = tk.Button(buttonFrame2, text='ʌ')
+buttonDown = tk.Button(buttonFrame2, text='v')
+buttonUp.pack(side='top')
+buttonDown.pack(side='top')
 
-frame_LoadSamples.pack(side='left')
-frame.pack(side='left')
+frame_LoadSamples.pack(side='left', fill=tk.BOTH, expand=1)
+buttonFrame1.pack(side='left')
 labelframe_writelist.pack(side='left')
-frame2.pack(side='left')
+buttonFrame2.pack(side='left')
 
 root.mainloop()
