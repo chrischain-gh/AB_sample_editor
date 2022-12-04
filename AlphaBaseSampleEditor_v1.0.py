@@ -165,16 +165,26 @@ for item in TB_stock_samples_keylist:
 
 labelframe_writelist = tk.LabelFrame(root, text='My Sample Set')
 rightList = tk.Listbox(labelframe_writelist, width=50, height=30)
-rightList.pack(side='left', fill=tk.BOTH, expand=1)
+rightList.pack(side='top', fill=tk.BOTH, expand=1)
+
+def refresh_sample_count():
+    sample_count_var.set(f'Sample Count: {rightList.size()} of 300')
+
+sample_count_var = tk.StringVar()
+sample_count_var.set(f'Sample Count: {rightList.size()} of 300')
+sampleCountLabel = tk.Label(labelframe_writelist, textvariable=sample_count_var)
+sampleCountLabel.pack(side='top')
 
 buttonFrame1 = tk.LabelFrame(root)
 buttonRight = tk.Button(buttonFrame1, text='>', command = lambda: [moveTo(AlphaBaseList, rightList),
                                                         moveTo(JazBaseList, rightList),
                                                         moveTo(WalkerBaseList, rightList),
                                                         moveTo(ToktokBaseList, rightList),
-                                                        moveTo(PersonalSamplesList, rightList)])
+                                                        moveTo(PersonalSamplesList, rightList),
+                                                        refresh_sample_count()])
 buttonX = tk.Button(buttonFrame1, text='X', command = lambda: [clearFrom(PersonalSamplesList),
-                                                               clearFrom(rightList)])
+                                                               clearFrom(rightList),
+                                                               refresh_sample_count()])
 buttonRight.pack(side='top')
 buttonX.pack(side='top')
 
