@@ -1,7 +1,9 @@
 import os
+import datetime
 import tkinter as tk
 from tkinter import filedialog
 
+import shutil
 from pydub import AudioSegment
 from pydub.playback import play
 
@@ -186,7 +188,38 @@ newFolderNameEntry = tk.Entry(newFolderActionsFrame, width=10)
 #newFolderNameEntry.insert(0, default_folder_name)
 newFolderNameEntry.pack(side='left')
 
-buttonGenerateFolder = tk.Button(newFolderActionsFrame, text='Generate Samples Folder')
+def generate_samples_folder():
+    # get custom name folder entry
+    # if entry is none, use default name. if not use entry name
+    # pull entire contents of listbox in its order
+    # create copy of all the files in the folder name defined above
+    
+    Timestamp = str(datetime.datetime.now()) \
+                    .replace(' ', '_') \
+                    .replace(':', '-') \
+                    .split('.')[0]
+    if newFolderNameEntry.get() == '':
+        generated_folder_name = f'AlphaBaseSamples_{Timestamp}'
+    else:
+        generated_folder_name = newFolderNameEntry.get()
+    print(f'Generated folder name is: {generated_folder_name}')
+    new_dir = f'sample_files/generated/{generated_folder_name}'
+
+    try:
+        if not os.path.exists(new_dir):
+            os.makedirs(new_dir)
+    except:
+        "There was an error making a directory"
+        print(new_dir)
+        
+    rightList_content = rightList.get(0, tk.END)
+    
+    for file in rightList_content:
+        print(file)
+        shutil.copy2(file, new_dir)
+        
+
+buttonGenerateFolder = tk.Button(newFolderActionsFrame, text='Generate Samples Folder', command=generate_samples_folder)
 buttonGenerateFolder.pack(side='right', padx=15)
 
 buttonFrame1 = tk.LabelFrame(root)
