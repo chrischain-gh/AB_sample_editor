@@ -202,9 +202,33 @@ buttonX = tk.Button(buttonFrame1, text='X', command = lambda: [clearFrom(Persona
 buttonRight.pack(side='top')
 buttonX.pack(side='top')
 
+def move_up():
+    sample_id = rightList.curselection()
+    if not sample_id:
+        return
+    for pos in sample_id:
+        if pos==0:
+            continue
+        text=rightList.get(pos)
+        rightList.delete(pos)
+        rightList.insert(pos-1, text)
+        
+
+def move_down():
+    sample_id = rightList.curselection()
+    if not sample_id:
+        return
+    for pos in sample_id:
+        if pos==-1:
+            continue
+        text=rightList.get(pos)
+        rightList.delete(pos)
+        rightList.insert(pos+1, text)
+        
+
 buttonFrame2 = tk.LabelFrame(root)
-buttonUp = tk.Button(buttonFrame2, text='ʌ')
-buttonDown = tk.Button(buttonFrame2, text='v')
+buttonUp = tk.Button(buttonFrame2, text='ʌ', command=move_up)
+buttonDown = tk.Button(buttonFrame2, text='v', command=move_down)
 buttonUp.pack(side='top')
 buttonDown.pack(side='top')
 
